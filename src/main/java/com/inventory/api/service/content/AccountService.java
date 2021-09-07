@@ -7,4 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AccountService {
 
     public Pengguna getByUsername(String username);
+
+    public void simpanPengguna(Pengguna pengguna);
 }

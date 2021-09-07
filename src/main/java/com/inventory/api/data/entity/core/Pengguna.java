@@ -20,7 +20,7 @@ import java.util.Collection;
 public class Pengguna extends MasterEntity implements UserDetails {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id_user")
     private Long userId;
 
     @Column(name = "username")
@@ -34,6 +34,9 @@ public class Pengguna extends MasterEntity implements UserDetails {
 
     @Column(name = "kode_jabatan")
     private Long kodeJabatan;
+
+    @Column(name = "login_gagal")
+    private Integer loginGagal;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -57,7 +60,7 @@ public class Pengguna extends MasterEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return loginGagal < 3;
     }
 
     @Override

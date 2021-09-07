@@ -17,6 +17,11 @@ public class AccountServiceImplement extends CommonService implements AccountSer
     }
 
     @Override
+    public void simpanPengguna(Pengguna pengguna) {
+        penggunaRepository.save(pengguna);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return penggunaRepository.findByUsername(s);
     }

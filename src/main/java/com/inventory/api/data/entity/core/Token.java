@@ -22,7 +22,7 @@ public class Token extends BaseEntity implements ClientDetails {
     private Long idToken;
 
     @Column(name = "authorities")
-    private String authorities;
+    private String authority;
 
     @Column(name = "client")
     private String client;
@@ -106,7 +106,7 @@ public class Token extends BaseEntity implements ClientDetails {
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> grants = new HashSet<>();
-        String[] strs = authorities.split(",");
+        String[] strs = authority.split(",");
         for (String atr : strs) {
             grants.add(new SimpleGrantedAuthority(atr));
         }
