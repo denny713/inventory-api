@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: inventory-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/inventory
+    username: postgres
+    password: p@ssw0rd
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+server:
+  port: 7090
+  servlet:
+    context-path: /
+auth:
+  client-name: inv-admin
+  client-pass: p@sswordk3y
+  client-secret: s3cR3tK3y
+  user-admin: 1

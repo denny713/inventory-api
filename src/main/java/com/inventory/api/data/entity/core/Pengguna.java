@@ -4,12 +4,15 @@ import com.inventory.api.constant.StatusConstant;
 import com.inventory.api.data.entity.base.MasterEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -20,7 +23,7 @@ import java.util.Collection;
 public class Pengguna extends MasterEntity implements UserDetails {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "id_user")
     private Long userId;
 
     @Column(name = "username")
@@ -32,8 +35,16 @@ public class Pengguna extends MasterEntity implements UserDetails {
     @Column(name = "kode_cabang")
     private String kodeCabang;
 
-    @Column(name = "kode_jabatan")
-    private Long kodeJabatan;
+    @Column(name = "id_jabatan")
+    private Long idJabatan;
+
+    @OneToMany(mappedBy = "id.idJabatan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OrderBy("id.idMenu ASC")
+    private List<Akses> akses;
+
+    @Column(name = "login_gagal")
+    private Integer loginGagal;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -57,7 +68,7 @@ public class Pengguna extends MasterEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return loginGagal < 3;
     }
 
     @Override
