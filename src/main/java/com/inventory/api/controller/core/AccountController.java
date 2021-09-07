@@ -27,12 +27,18 @@ import java.util.*;
 @RequestMapping("/api/account")
 public class AccountController extends BaseController {
 
+    @PostMapping("/logout")
+    @ResponseBody
+    public Response doLogout() {
+        return ResponseUtil.setSuccess(successStatus, PesanEnum.SUKSES_LOGOUT.getMessage(), null);
+    }
+
     @PostMapping("/login")
     @ResponseBody
     public Response doLogin(@Valid @RequestBody LoginRequest login) {
         try {
             CheckResultData cek = loginCheck(login);
-            if (!cek.getResult()) {
+            if (Boolean.FALSE.equals(cek.getResult())) {
                 response = ResponseUtil.setFailed(errorStatus, PesanEnum.GAGAL_LOGIN.getMessage() + " : " + cek.getMessage());
             } else {
                 UserLoginData loginData = doSetUserLogin(login);
