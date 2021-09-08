@@ -27,21 +27,26 @@ import java.util.*;
 @RequestMapping("/api/account")
 public class AccountController extends BaseController {
 
+    @PostMapping("/logout")
+    @ResponseBody
+    public Response doLogout() {
+        return ResponseUtil.setSuccess(successStatus, PesanEnum.SUKSES_LOGOUT.getMessage(), null);
+    }
+
     @PostMapping("/login")
     @ResponseBody
     public Response doLogin(@Valid @RequestBody LoginRequest login) {
         try {
             CheckResultData cek = loginCheck(login);
-            if (!cek.getResult()) {
-                response = ResponseUtil.setFailed(errorStatus, PesanEnum.GAGAL_LOGIN.getMessage() + " : " + cek.getMessage());
+            if (Boolean.FALSE.equals(cek.getResult())) {
+                return ResponseUtil.setFailed(errorStatus, PesanEnum.GAGAL_LOGIN.getMessage() + " : " + cek.getMessage());
             } else {
                 UserLoginData loginData = doSetUserLogin(login);
-                response = ResponseUtil.setSuccess(successStatus, PesanEnum.SUKSES_LOGIN.getMessage(), loginData);
+                return ResponseUtil.setSuccess(successStatus, PesanEnum.SUKSES_LOGIN.getMessage(), loginData);
             }
         } catch (Exception e) {
-            response = ResponseUtil.setFailed(errorStatus, PesanEnum.GAGAL_LOGIN.getMessage() + " : " + e.getMessage());
+            return ResponseUtil.setFailed(errorStatus, PesanEnum.GAGAL_LOGIN.getMessage() + " : " + e.getMessage());
         }
-        return response;
     }
 
     public CheckResultData loginCheck(LoginRequest login) throws NoSuchAlgorithmException {

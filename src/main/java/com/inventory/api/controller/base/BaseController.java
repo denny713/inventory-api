@@ -23,7 +23,6 @@ public class BaseController {
     @Autowired
     protected TokenService tokenService;
 
-    protected Response response;
     protected int errorStatus = 500;
     protected int successStatus = 200;
 
