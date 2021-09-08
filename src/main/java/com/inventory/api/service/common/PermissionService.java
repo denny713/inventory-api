@@ -27,6 +27,6 @@ public class PermissionService {
         AksesId aksesId = new AksesId(user.getIdJabatan(), permit);
         Akses akses = new Akses();
         akses.setId(aksesId);
-        return user.getAkses().contains(akses);
+        return user.getJabatan().getAkses().contains(akses);
     }
 }

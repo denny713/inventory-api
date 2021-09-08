@@ -18,6 +18,9 @@ public class Akses implements Serializable {
     @EmbeddedId
     private AksesId id;
 
+    @Column(name = "read_only")
+    private Boolean readOnly;
+
     @OneToOne(cascade = CascadeType.ALL)
     @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "id_menu", insertable = false, updatable = false, referencedColumnName = "id_menu")

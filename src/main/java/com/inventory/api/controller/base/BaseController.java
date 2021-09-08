@@ -12,9 +12,6 @@ import org.springframework.stereotype.Controller;
 public class BaseController {
 
     @Autowired
-    private Environment environment;
-
-    @Autowired
     protected TokenEndpoint tokenEndpoint;
 
     @Autowired
@@ -25,12 +22,4 @@ public class BaseController {
 
     protected int errorStatus = 500;
     protected int successStatus = 200;
-
-    public String getClientName() {
-        return environment.getProperty("auth.client-name");
-    }
-
-    public String getClientPass() {
-        return environment.getProperty("auth.client-pass");
-    }
 }
