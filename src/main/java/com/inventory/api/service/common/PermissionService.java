@@ -18,7 +18,7 @@ public class PermissionService {
     @Autowired
     private Environment env;
 
-    public Boolean cek(Long permit) {
+    public Boolean cek(Long permit, Boolean readOnly) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Pengguna user = (Pengguna) auth.getPrincipal();
         if (user.getUserId() == Long.parseLong(Objects.requireNonNull(env.getProperty("auth.user-admin")))) {
@@ -27,6 +27,7 @@ public class PermissionService {
         AksesId aksesId = new AksesId(user.getIdJabatan(), permit);
         Akses akses = new Akses();
         akses.setId(aksesId);
+        akses.setReadOnly(readOnly);
         return user.getJabatan().getAkses().contains(akses);
     }
 }
