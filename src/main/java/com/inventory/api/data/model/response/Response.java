@@ -5,6 +5,10 @@ import lombok.Data;
 @Data
 public class Response<T> {
 
+    public Response() {
+        super();
+    }
+
     public Response(int kode, String pesan, T data) {
         this.kode = kode;
         this.pesan = pesan;

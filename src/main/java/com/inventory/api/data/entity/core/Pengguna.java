@@ -10,9 +10,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -20,7 +20,9 @@ import java.util.List;
 @Table(name = "pengguna", uniqueConstraints = {
         @UniqueConstraint(columnNames = "username")
 })
-public class Pengguna extends MasterEntity implements UserDetails {
+public class Pengguna extends MasterEntity implements UserDetails, Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id_user")
@@ -38,10 +40,10 @@ public class Pengguna extends MasterEntity implements UserDetails {
     @Column(name = "id_jabatan")
     private Long idJabatan;
 
-    @OneToMany(mappedBy = "id.idJabatan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @NotFound(action = NotFoundAction.IGNORE)
-    @OrderBy("id.idMenu ASC")
-    private List<Akses> akses;
+    @JoinColumn(name = "id_jabatan", insertable = false, updatable = false, referencedColumnName = "id_jabatan")
+    private Jabatan jabatan;
 
     @Column(name = "login_gagal")
     private Integer loginGagal;

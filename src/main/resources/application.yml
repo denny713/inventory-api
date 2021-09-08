@@ -14,7 +14,5 @@ server:
   servlet:
     context-path: /
 auth:
-  client-name: inv-admin
-  client-pass: p@sswordk3y
   client-secret: s3cR3tK3y
   user-admin: 1
