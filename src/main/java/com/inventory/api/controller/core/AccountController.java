@@ -39,15 +39,14 @@ public class AccountController extends BaseController {
         try {
             CheckResultData cek = loginCheck(login);
             if (Boolean.FALSE.equals(cek.getResult())) {
-                response = ResponseUtil.setFailed(errorStatus, PesanEnum.GAGAL_LOGIN.getMessage() + " : " + cek.getMessage());
+                return ResponseUtil.setFailed(errorStatus, PesanEnum.GAGAL_LOGIN.getMessage() + " : " + cek.getMessage());
             } else {
                 UserLoginData loginData = doSetUserLogin(login);
-                response = ResponseUtil.setSuccess(successStatus, PesanEnum.SUKSES_LOGIN.getMessage(), loginData);
+                return ResponseUtil.setSuccess(successStatus, PesanEnum.SUKSES_LOGIN.getMessage(), loginData);
             }
         } catch (Exception e) {
-            response = ResponseUtil.setFailed(errorStatus, PesanEnum.GAGAL_LOGIN.getMessage() + " : " + e.getMessage());
+            return ResponseUtil.setFailed(errorStatus, PesanEnum.GAGAL_LOGIN.getMessage() + " : " + e.getMessage());
         }
-        return response;
     }
 
     public CheckResultData loginCheck(LoginRequest login) throws NoSuchAlgorithmException {
