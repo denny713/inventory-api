@@ -12,13 +12,18 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImplement extends CommonService implements AccountService, UserDetailsService {
 
     @Override
+    public Pengguna getByUserId(Long userId) {
+        return penggunaRepository.findByUserId(userId);
+    }
+
+    @Override
     public Pengguna getByUsername(String username) {
         return penggunaRepository.findByUsername(username);
     }
 
     @Override
-    public void simpanPengguna(Pengguna pengguna) {
-        penggunaRepository.save(pengguna);
+    public Pengguna simpanPengguna(Pengguna pengguna) {
+        return penggunaRepository.save(pengguna);
     }
 
     @Override

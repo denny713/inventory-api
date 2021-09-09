@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface AccountService {
 
+    public Pengguna getByUserId(Long userId);
+
     public Pengguna getByUsername(String username);
 
-    public void simpanPengguna(Pengguna pengguna);
+    public Pengguna simpanPengguna(Pengguna pengguna);
 }
